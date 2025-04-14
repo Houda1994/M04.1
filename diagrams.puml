@@ -1,0 +1,45 @@
+@startuml class-diagram
+' Class Diagram
+class WordProcessor {
+  - uniqueWords: set<string>
+  + readFromFile(filename: string): void
+  + displayWords(): void
+}
+
+class StateCapitalManager {
+  - stateCapitalMap: map<string, string>
+  + addStateCapital(state: string, capital: string): void
+  + findCapital(state: string): string
+  + displayCapital(state: string): void
+}
+
+@enduml
+
+@startuml use-case-diagram
+' Use Case Diagram
+left to right direction
+actor User
+
+rectangle "Word Processing System" {
+  usecase "Read words from file" as UC1
+  usecase "Display unique words" as UC2
+  usecase "Sort words" as UC3
+}
+
+rectangle "State Capital System" {
+  usecase "Enter state name" as UC4
+  usecase "View capital city" as UC5
+  usecase "Handle invalid state" as UC6
+}
+
+User --> UC1
+User --> UC2
+User --> UC4
+User --> UC5
+
+UC1 ..> UC2 : includes
+UC2 ..> UC3 : includes
+UC4 ..> UC5 : includes
+UC4 ..> UC6 : extends
+
+@enduml
